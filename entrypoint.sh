@@ -36,9 +36,17 @@ case $INPUT_PRETTIER_VERSION in
         ;;
 esac
 
-echo "Prettifing files..."
-echo "Files:"
-prettier $INPUT_PRETTIER_OPTIONS || echo "Problem running prettier with $INPUT_PRETTIER_OPTIONS"
+if $INPUT_DIFF_ONLY;
+then
+  echo "Running pretty-quick (Prettier for diff only)..."
+  npm install --silent --global pretty-quick
+  echo "Files:"
+  pretty-quick $INPUT_PRETTIER_OPTIONS || echo "Problem running pretty-quick with $INPUT_PRETTIER_OPTIONS"
+else
+  echo "Prettifing all files..."
+  echo "Files:"
+  prettier $INPUT_PRETTIER_OPTIONS || echo "Problem running prettier with $INPUT_PRETTIER_OPTIONS"
+fi
 
 # To keep runtime good, just continue if something was changed
 if _git_changed;

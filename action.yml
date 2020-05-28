@@ -27,6 +27,10 @@ inputs:
     description: Specific version of prettier (by default just use the latest version)
     required: false
     default: false
+  diff_only:
+    description: Set to true to run Prettier only on changed files
+    required: false
+    default: false
 
 runs:
   using: 'docker'
