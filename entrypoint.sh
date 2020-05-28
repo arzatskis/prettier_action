@@ -40,9 +40,11 @@ esac
 echo "Prettifing all files..."
 echo "Files:"
 
+files=$(git diff --name-only master)
+
 while read -r file; do
   prettier --write $file
-done <<< "$(git diff --name-only master)"
+done <<< "${files}"
 
 # To keep runtime good, just continue if something was changed
 if _git_changed;
